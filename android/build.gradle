@@ -1,0 +1,36 @@
+buildscript {
+    ext.kotlin_version = '1.9.22'
+    repositories {
+       // maven { url 'https://dl.bintray.com/mautini/maven' } // Add this line
+        google()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.22"
+       // implementation 'com.transistorsoft:tsbackgroundfetch:2.14.0'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://dl.bintray.com/mautini/maven' }   }
+}
+
+
+
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}
